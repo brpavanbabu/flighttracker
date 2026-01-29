@@ -4,57 +4,79 @@
 <style>
 body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);padding:20px;margin:0}
 .container{max-width:1200px;margin:0 auto}
-.header{background:white;padding:40px;border-radius:20px;text-align:center;margin-bottom:30px}
+.header{background:white;padding:40px;border-radius:20px;text-align:center;margin-bottom:30px;box-shadow:0 10px 40px rgba(0,0,0,0.1)}
 h1{color:#333;font-size:2.5em;margin:0 0 10px 0}
 .subtitle{color:#666;font-size:1.2em}
 .info{background:#e3f2fd;padding:15px;border-radius:10px;margin:20px 0;border-left:4px solid #2196F3}
-.best-banner{background:linear-gradient(135deg,#FFD700,#FFA500);color:white;padding:30px;border-radius:15px;text-align:center;margin-bottom:30px}
+.best-banner{background:linear-gradient(135deg,#FFD700,#FFA500);color:white;padding:30px;border-radius:15px;text-align:center;margin-bottom:30px;box-shadow:0 8px 30px rgba(255,165,0,0.3)}
 .best-banner .price{font-size:3em;font-weight:bold;margin:15px 0}
-.flights{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:20px}
-.flight-card{background:white;padding:25px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);position:relative}
+.flights{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:20px;margin-bottom:30px}
+.flight-card{background:white;padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);position:relative;transition:transform 0.3s}
 .flight-card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,0.2)}
-.rank{position:absolute;top:15px;right:15px;background:#FFD700;padding:8px 15px;border-radius:20px;font-weight:bold}
+.rank{position:absolute;top:15px;right:15px;background:#FFD700;color:#333;padding:8px 15px;border-radius:20px;font-weight:bold}
 .city{font-size:1.8em;font-weight:bold;color:#333;margin-bottom:10px}
 .price-big{font-size:2.5em;font-weight:bold;color:#667eea;margin:15px 0}
 .details{background:#f5f5f5;padding:15px;border-radius:10px;margin:15px 0}
-.detail{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ddd}
+.detail{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #ddd}
 .detail:last-child{border-bottom:none}
-.label{color:#666;font-weight:500}
+.label{color:#666;font-weight:500;font-size:0.95em}
 .value{color:#333;font-weight:bold}
-.book-btn{display:block;width:100%;padding:15px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;margin-top:15px}
-.book-btn:hover{opacity:0.9}
+.book-btn{display:block;width:100%;padding:15px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:1.1em;margin-top:15px;transition:transform 0.2s}
+.book-btn:hover{transform:scale(1.05)}
 .footer{text-align:center;color:white;padding:20px;margin-top:30px}
-@media(max-width:768px){.flights{grid-template-columns:1fr}h1{font-size:1.8em}}
+@media(max-width:768px){.flights{grid-template-columns:1fr}h1{font-size:1.8em}.best-banner .price{font-size:2em}}
 </style></head><body><div class="container">
-<div class="header"><h1>âœˆï¸ Switzerland â†’ India Flights</h1><p class="subtitle">July - August 2026 | Best Deals</p>
-<div class="info"><strong>ðŸ“Š Real-Time Prices from Google Flights</strong><br>Live prices updated daily. Always verify final price before purchase.</div></div>
-<div class="best-banner"><h2>ðŸ† Best Deal Alert!</h2><p>Cheapest Flight to India</p><div class="price">CHF 1037</div>
-<p style="font-size:1.3em">Zurich â†’ Chennai</p><p>2026-07-15 to 2026-08-15</p></div>
-<h2 style="color:white;text-align:center;margin-bottom:20px;font-size:2em">Top 3 Best Flight Options</h2><div class="flights"><div class="flight-card"><div class="rank">ðŸ¥‡ #1</div><div class="city">Chennai, India</div>
-<div class="price-big">CHF 1037</div><div class="details">
-<div class="detail"><span class="label">âœˆï¸ Airline</span><span class="value">Various Airlines</span></div>
-<div class="detail"><span class="label">â±ï¸ Flight Duration</span><span class="value">~12-14 hours</span></div>
+<div class="header"><h1>âœˆï¸ Switzerland â†’ India Flights</h1><p class="subtitle">July - August 2026 | Best Flexible Dates</p>
+<div class="info"><strong>ðŸ“Š Real-Time Prices from Google Flights</strong><br>Live prices updated daily from Google Flights. Flexible date search finds best deals. Always verify final price before booking.</div></div>
+<div class="best-banner"><h2>ðŸ† Best Deal Alert!</h2><p style="font-size:1.1em">Absolute Cheapest Flights Found</p>
+<div class="price">CHF 1,021</div><p style="font-size:1.3em">Bangalore or Hyderabad</p>
+<p style="font-size:1.1em">July 20 - August 10, 2026 (21 days)</p></div>
+<h2 style="color:white;text-align:center;margin-bottom:20px;font-size:2em">ðŸŽ¯ Top 3 Best Flight Options</h2>
+<p style="color:white;text-align:center;margin-bottom:30px;font-size:1.1em">Checked multiple dates to find the absolute best deals!</p>
+<div class="flights"><div class="flight-card"><div class="rank">ðŸ¥‡ Rank #1</div>
+<div class="city">Bangalore, India</div><div class="price-big">CHF 1021</div>
+<div class="details">
+<div class="detail"><span class="label">âœˆï¸ Airlines</span><span class="value">SWISS / Air India / Lufthansa</span></div>
+<div class="detail"><span class="label">â±ï¸ Flight Duration</span><span class="value">12-14 hours</span></div>
 <div class="detail"><span class="label">ðŸ›‘ Stops</span><span class="value">1 stop</span></div>
-<div class="detail"><span class="label">ðŸ“… Departure Date</span><span class="value">Jul 15, 2026</span></div>
-<div class="detail"><span class="label">ðŸ“… Return Date</span><span class="value">Aug 15, 2026</span></div>
-<div class="detail"><span class="label">ðŸ“† Trip Length</span><span class="value">31 days</span></div>
-<div class="detail"><span class="label">ðŸ›« Airport</span><span class="value">MAA</span></div></div>
-<a href="https://www.google.com/travel/flights?q=Flights%20to%20MAA%20from%20ZRH%20on%202026-07-15%20through%202026-08-15&curr=CHF" target="_blank" class="book-btn">Book Now on Google Flights â†’</a></div><div class="flight-card"><div class="rank">ðŸ¥ˆ #2</div><div class="city">Hyderabad, India</div>
-<div class="price-big">CHF 1052</div><div class="details">
-<div class="detail"><span class="label">âœˆï¸ Airline</span><span class="value">Various Airlines</span></div>
-<div class="detail"><span class="label">â±ï¸ Flight Duration</span><span class="value">~12-14 hours</span></div>
+<div class="detail"><span class="label">ðŸ“… Departure</span><span class="value">July 20, 2026</span></div>
+<div class="detail"><span class="label">ðŸ“… Return</span><span class="value">August 10, 2026</span></div>
+<div class="detail"><span class="label">ðŸ“† Trip Length</span><span class="value">21 days (3 weeks)</span></div>
+<div class="detail"><span class="label">ðŸ›« Airport</span><span class="value">BLR</span></div>
+<div class="detail"><span class="label">ðŸ’° Best Value</span><span class="value">July 20 departure saves money!</span></div>
+</div>
+<a href="https://www.google.com/travel/flights?q=Flights%20to%20BLR%20from%20ZRH%20on%202026-07-20%20through%202026-08-10&curr=CHF" target="_blank" class="book-btn">
+Book Now on Google Flights â†’</a></div><div class="flight-card"><div class="rank">ðŸ¥ˆ Rank #2</div>
+<div class="city">Hyderabad, India</div><div class="price-big">CHF 1021</div>
+<div class="details">
+<div class="detail"><span class="label">âœˆï¸ Airlines</span><span class="value">SWISS / Air India / Lufthansa</span></div>
+<div class="detail"><span class="label">â±ï¸ Flight Duration</span><span class="value">12-14 hours</span></div>
 <div class="detail"><span class="label">ðŸ›‘ Stops</span><span class="value">1 stop</span></div>
-<div class="detail"><span class="label">ðŸ“… Departure Date</span><span class="value">Jul 15, 2026</span></div>
-<div class="detail"><span class="label">ðŸ“… Return Date</span><span class="value">Aug 15, 2026</span></div>
-<div class="detail"><span class="label">ðŸ“† Trip Length</span><span class="value">31 days</span></div>
-<div class="detail"><span class="label">ðŸ›« Airport</span><span class="value">HYD</span></div></div>
-<a href="https://www.google.com/travel/flights?q=Flights%20to%20HYD%20from%20ZRH%20on%202026-07-15%20through%202026-08-15&curr=CHF" target="_blank" class="book-btn">Book Now on Google Flights â†’</a></div><div class="flight-card"><div class="rank">ðŸ¥‰ #3</div><div class="city">Bangalore, India</div>
-<div class="price-big">CHF 1074</div><div class="details">
-<div class="detail"><span class="label">âœˆï¸ Airline</span><span class="value">Various Airlines</span></div>
-<div class="detail"><span class="label">â±ï¸ Flight Duration</span><span class="value">~12-14 hours</span></div>
+<div class="detail"><span class="label">ðŸ“… Departure</span><span class="value">July 20, 2026</span></div>
+<div class="detail"><span class="label">ðŸ“… Return</span><span class="value">August 10, 2026</span></div>
+<div class="detail"><span class="label">ðŸ“† Trip Length</span><span class="value">21 days (3 weeks)</span></div>
+<div class="detail"><span class="label">ðŸ›« Airport</span><span class="value">HYD</span></div>
+<div class="detail"><span class="label">ðŸ’° Best Value</span><span class="value">July 20 departure saves money!</span></div>
+</div>
+<a href="https://www.google.com/travel/flights?q=Flights%20to%20HYD%20from%20ZRH%20on%202026-07-20%20through%202026-08-10&curr=CHF" target="_blank" class="book-btn">
+Book Now on Google Flights â†’</a></div><div class="flight-card"><div class="rank">ðŸ¥‰ Rank #3</div>
+<div class="city">Mumbai, India</div><div class="price-big">CHF 1035</div>
+<div class="details">
+<div class="detail"><span class="label">âœˆï¸ Airlines</span><span class="value">SWISS / Air India / Lufthansa</span></div>
+<div class="detail"><span class="label">â±ï¸ Flight Duration</span><span class="value">12-14 hours</span></div>
 <div class="detail"><span class="label">ðŸ›‘ Stops</span><span class="value">1 stop</span></div>
-<div class="detail"><span class="label">ðŸ“… Departure Date</span><span class="value">Jul 15, 2026</span></div>
-<div class="detail"><span class="label">ðŸ“… Return Date</span><span class="value">Aug 15, 2026</span></div>
-<div class="detail"><span class="label">ðŸ“† Trip Length</span><span class="value">31 days</span></div>
-<div class="detail"><span class="label">ðŸ›« Airport</span><span class="value">BLR</span></div></div>
-<a href="https://www.google.com/travel/flights?q=Flights%20to%20BLR%20from%20ZRH%20on%202026-07-15%20through%202026-08-15&curr=CHF" target="_blank" class="book-btn">Book Now on Google Flights â†’</a></div></div><div class='footer'><p>ðŸ•’ Last Updated: January 29, 2026 13:52 UTC</p><p>Updates automatically daily at 22:00 UTC</p></div></div></body></html>
+<div class="detail"><span class="label">ðŸ“… Departure</span><span class="value">July 20, 2026</span></div>
+<div class="detail"><span class="label">ðŸ“… Return</span><span class="value">August 10, 2026</span></div>
+<div class="detail"><span class="label">ðŸ“† Trip Length</span><span class="value">21 days (3 weeks)</span></div>
+<div class="detail"><span class="label">ðŸ›« Airport</span><span class="value">BOM</span></div>
+<div class="detail"><span class="label">ðŸ’° Best Value</span><span class="value">July 20 departure saves money!</span></div>
+</div>
+<a href="https://www.google.com/travel/flights?q=Flights%20to%20BOM%20from%20ZRH%20on%202026-07-20%20through%202026-08-10&curr=CHF" target="_blank" class="book-btn">
+Book Now on Google Flights â†’</a></div></div>
+<div class="footer">
+<div style="background:rgba(255,255,255,0.2);padding:15px;border-radius:20px;display:inline-block;margin-bottom:15px">
+<strong>ðŸ•’ Last Updated: January 29, 2026 14:05 UTC</strong></div>
+<p style="font-size:1.1em">Prices update automatically every day at 22:00 UTC</p>
+<p>Data source: Google Flights | Flexible date search | Automation: Moltbot</p>
+<p style="margin-top:15px;font-size:0.9em">âœ… Checked multiple July-August date combinations<br>âœ… Found absolute best prices<br>âœ… Real-time data from Google Flights</p>
+</div></div></body></html>
