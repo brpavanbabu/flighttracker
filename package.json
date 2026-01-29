@@ -1,0 +1,19 @@
+{
+  "name": "flight-tracker-switzerland-bangalore",
+  "version": "1.0.0",
+  "description": "Flight price tracker for Switzerland to Bangalore routes",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "flight-tracker",
+    "switzerland",
+    "bangalore",
+    "travel",
+    "prices"
+  ],
+  "author": "Moltbot Flight Tracker",
+  "license": "MIT"
+}

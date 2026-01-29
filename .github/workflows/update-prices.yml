@@ -1,0 +1,53 @@
+name: Update Flight Prices Daily
+
+on:
+  # Run every day at 22:00 (10 PM) UTC
+  schedule:
+    - cron: '0 22 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Trigger Vercel API
+        run: |
+          echo "Calling Vercel API to update prices..."
+          
+          # Call the API endpoint
+          response=$(curl -s -w "\n%{http_code}" \
+            https://flight-tracker-switzerland-bangalor.vercel.app/api/get-flight-prices)
+          
+          # Extract HTTP status code
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n-1)
+          
+          # Check if successful
+          if [ $http_code -eq 200 ]; then
+            echo "✅ Successfully updated prices!"
+            echo "Response:"
+            echo "$body" | jq '.'
+            
+            # Extract cheapest flight info
+            cheapest_city=$(echo "$body" | jq -r '.cheapest.city // "N/A"')
+            cheapest_price=$(echo "$body" | jq -r '.cheapest.price // "N/A"')
+            
+            echo ""
+            echo "🏆 Cheapest flight: $cheapest_city at CHF $cheapest_price"
+          else
+            echo "⚠️ API call failed with status $http_code"
+            echo "Response: $body"
+            exit 1
+          fi
+      
+      - name: Send notification (optional)
+        if: success()
+        run: |
+          echo "Prices updated successfully at $(date)"
+          echo "Website: https://flight-tracker-switzerland-bangalor.vercel.app"

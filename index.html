@@ -1,0 +1,1009 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Price Tracker | Switzerland → India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+        
+        .logo {
+            font-size: 4em;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        h1 {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        .update-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 25px;
+            border-radius: 30px;
+            margin-top: 20px;
+            font-size: 0.9em;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 25px 0;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .card-header h2 {
+            font-size: 1.8em;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .card-icon {
+            font-size: 2em;
+        }
+        
+        /* Best Deal Banner */
+        .best-deal {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin: 25px 0;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+        }
+        
+        .best-deal h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .best-deal .price {
+            font-size: 5em;
+            font-weight: 800;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .best-deal-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .detail-box {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .detail-box strong {
+            display: block;
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        
+        .detail-box span {
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        /* Airlines Grid */
+        .airlines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .airline-card {
+            background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .airline-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.2);
+        }
+        
+        .airline-logo {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .airline-name {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        
+        .airline-route {
+            color: #64748b;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+        
+        .airline-price {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--success);
+            margin: 15px 0;
+        }
+        
+        .airline-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .airline-detail-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+        }
+        
+        .airline-detail-label {
+            color: #64748b;
+        }
+        
+        .airline-detail-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* Cities Table */
+        .cities-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 12px;
+        }
+        
+        .cities-table thead tr {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+        
+        .cities-table th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        
+        .cities-table th:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+        
+        .cities-table th:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .cities-table tbody tr {
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .cities-table tbody tr:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .cities-table td {
+            padding: 25px 20px;
+            border-top: 3px solid var(--light);
+        }
+        
+        .cities-table tbody tr td:first-child {
+            border-radius: 10px 0 0 10px;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .cities-table tbody tr td:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .city-name {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .city-code {
+            background: var(--light);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .price-cell {
+            font-size: 1.6em;
+            font-weight: 800;
+            color: var(--success);
+        }
+        
+        .date-cell {
+            color: #64748b;
+            font-size: 0.95em;
+        }
+        
+        .state-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        /* Action Buttons */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+        
+        .action-btn.secondary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .action-btn.secondary:hover {
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+        
+        .action-btn.tertiary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+        
+        .action-btn.tertiary:hover {
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+        
+        .btn-icon {
+            font-size: 1.5em;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            
+            h1 { 
+                font-size: 2em; 
+                margin-bottom: 10px;
+            }
+            
+            .logo { font-size: 2.5em; }
+            
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+            
+            .update-badge {
+                font-size: 0.75em;
+                padding: 8px 15px;
+            }
+            
+            .card {
+                padding: 20px;
+                margin: 15px 0;
+                border-radius: 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .card-header h2 {
+                font-size: 1.4em;
+            }
+            
+            .best-deal { 
+                padding: 30px 20px;
+                margin: 15px 0;
+            }
+            
+            .best-deal h2 {
+                font-size: 1.8em;
+            }
+            
+            .best-deal .price { 
+                font-size: 3.5em; 
+                margin: 15px 0;
+            }
+            
+            .best-deal-details {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .detail-box {
+                padding: 15px;
+            }
+            
+            .airlines-grid { 
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .airline-card {
+                padding: 20px;
+            }
+            
+            .airline-logo {
+                font-size: 2.5em;
+            }
+            
+            .airline-name {
+                font-size: 1.2em;
+            }
+            
+            .airline-price {
+                font-size: 1.8em;
+            }
+            
+            /* Better mobile table */
+            .cities-table {
+                font-size: 0.85em;
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .cities-table thead {
+                display: none;
+            }
+            
+            .cities-table,
+            .cities-table tbody,
+            .cities-table tr,
+            .cities-table td {
+                display: block;
+                width: 100%;
+            }
+            
+            .cities-table tbody tr {
+                margin-bottom: 15px;
+                border-radius: 15px;
+                border-left: 5px solid var(--primary);
+            }
+            
+            .cities-table td {
+                padding: 12px 15px;
+                border: none;
+                text-align: left;
+                position: relative;
+                padding-left: 45%;
+            }
+            
+            .cities-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                font-weight: 600;
+                color: #64748b;
+                text-transform: uppercase;
+                font-size: 0.75em;
+            }
+            
+            .cities-table td:first-child {
+                padding-top: 20px;
+                border-radius: 15px 15px 0 0;
+            }
+            
+            .cities-table td:last-child {
+                padding-bottom: 20px;
+                border-radius: 0 0 15px 15px;
+            }
+            
+            .city-name {
+                font-size: 1.3em;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .price-cell {
+                font-size: 1.8em;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .action-btn {
+                padding: 20px;
+                font-size: 1em;
+            }
+            
+            .footer-content {
+                padding: 20px;
+                font-size: 0.9em;
+            }
+        }
+        
+        /* Loading Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">✈️</div>
+            <h1>Flight Price Tracker</h1>
+            <div class="subtitle">Switzerland → India | July-August 2026</div>
+            <div class="update-badge">
+                🔄 Price estimates updated daily at 10:00 PM | Last: January 29, 2026
+            </div>
+        </header>
+
+        <!-- Best Deal Banner -->
+        <div class="best-deal">
+            <h2>🏆 BEST ESTIMATED DEAL</h2>
+            <div style="font-size: 1.8em; margin: 15px 0;">Delhi</div>
+            <div class="price">~CHF 300</div>
+            <div style="font-size: 0.9em; opacity: 0.9; margin-top: -10px; margin-bottom: 15px;">
+                Estimated price - Verify on booking sites
+            </div>
+            <div class="best-deal-details">
+                <div class="detail-box">
+                    <strong>📅 Travel Dates</strong>
+                    <span>Jul 14 → Aug 14</span>
+                </div>
+                <div class="detail-box">
+                    <strong>✈️ Airport</strong>
+                    <span>DEL (Indira Gandhi)</span>
+                </div>
+                <div class="detail-box">
+                    <strong>⏱️ Duration</strong>
+                    <span>~9-11 hours</span>
+                </div>
+                <div class="detail-box">
+                    <strong>💰 You Save</strong>
+                    <span>Up to CHF 500!</span>
+                </div>
+            </div>
+            <a href="https://www.google.com/flights?hl=en#flt=ZRH,GVA,BSL.DEL.2026-07-14*DEL.ZRH,GVA,BSL.2026-08-14" target="_blank" class="action-btn" style="display: inline-flex; margin-top: 30px; background: white; color: var(--success);">
+                <span class="btn-icon">🔍</span>
+                Book Delhi Flight Now
+            </a>
+        </div>
+
+        <!-- Airlines -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">✈️</span>
+                <h2>Recommended Airlines</h2>
+            </div>
+            <div class="airlines-grid">
+                <!-- Turkish Airlines -->
+                <div class="airline-card" onclick="window.open('https://www.turkishairlines.com', '_blank')">
+                    <div class="airline-logo">🇹🇷</div>
+                    <div class="airline-name">Turkish Airlines</div>
+                    <div class="airline-route">via Istanbul (IST)</div>
+                    <div class="airline-price">CHF 700-850</div>
+                    <div class="airline-details">
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Duration:</span>
+                            <span class="airline-detail-value">11-13 hours</span>
+                        </div>
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Stops:</span>
+                            <span class="airline-detail-value">1 (Istanbul)</span>
+                        </div>
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Rating:</span>
+                            <span class="airline-detail-value">⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emirates -->
+                <div class="airline-card" onclick="window.open('https://www.emirates.com', '_blank')">
+                    <div class="airline-logo">🇦🇪</div>
+                    <div class="airline-name">Emirates</div>
+                    <div class="airline-route">via Dubai (DXB)</div>
+                    <div class="airline-price">CHF 800-950</div>
+                    <div class="airline-details">
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Duration:</span>
+                            <span class="airline-detail-value">9-11 hours</span>
+                        </div>
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Stops:</span>
+                            <span class="airline-detail-value">1 (Dubai)</span>
+                        </div>
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Rating:</span>
+                            <span class="airline-detail-value">⭐⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Qatar Airways -->
+                <div class="airline-card" onclick="window.open('https://www.qatarairways.com', '_blank')">
+                    <div class="airline-logo">🇶🇦</div>
+                    <div class="airline-name">Qatar Airways</div>
+                    <div class="airline-route">via Doha (DOH)</div>
+                    <div class="airline-price">CHF 850-1,000</div>
+                    <div class="airline-details">
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Duration:</span>
+                            <span class="airline-detail-value">10-12 hours</span>
+                        </div>
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Stops:</span>
+                            <span class="airline-detail-value">1 (Doha)</span>
+                        </div>
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Rating:</span>
+                            <span class="airline-detail-value">⭐⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Air India -->
+                <div class="airline-card" onclick="window.open('https://www.airindia.com', '_blank')">
+                    <div class="airline-logo">🇮🇳</div>
+                    <div class="airline-name">Air India</div>
+                    <div class="airline-route">Direct Flight</div>
+                    <div class="airline-price">CHF 900-1,200</div>
+                    <div class="airline-details">
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Duration:</span>
+                            <span class="airline-detail-value">8 hours</span>
+                        </div>
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Stops:</span>
+                            <span class="airline-detail-value">Non-stop</span>
+                        </div>
+                        <div class="airline-detail-item">
+                            <span class="airline-detail-label">Rating:</span>
+                            <span class="airline-detail-value">⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cities Comparison -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">📊</span>
+                <h2>All Cities Comparison</h2>
+            </div>
+            <div style="background: #fff3cd; border-left: 4px solid #fbbf24; padding: 15px 20px; border-radius: 10px; margin-bottom: 25px;">
+                <div style="font-weight: 700; color: #92400e; margin-bottom: 5px;">
+                    📊 Estimated Prices - Not Live Data
+                </div>
+                <div style="font-size: 0.9em; color: #78350f;">
+                    These are AI-generated price estimates. Click "Quick Actions" below to check real-time prices on booking sites.
+                </div>
+            </div>
+            <table class="cities-table">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Best Price</th>
+                        <th>Best Dates</th>
+                        <th>Airport</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr onclick="window.open('https://www.delhiairport.com', '_blank')" style="cursor: pointer;">
+                        <td data-label="City">
+                            <div class="city-name">
+                                Delhi
+                                <span class="city-code">DEL</span>
+                            </div>
+                        </td>
+                        <td data-label="State"><span class="state-badge">Delhi</span></td>
+                        <td data-label="Best Price" class="price-cell">CHF 300</td>
+                        <td data-label="Best Dates" class="date-cell">Jul 14 - Aug 14, 2026</td>
+                        <td data-label="Airport">
+                            <a href="https://www.delhiairport.com" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                                Indira Gandhi Intl ↗
+                            </a>
+                        </td>
+                    </tr>
+                    <tr onclick="window.open('https://www.csmia.aero', '_blank')" style="cursor: pointer;">
+                        <td data-label="City">
+                            <div class="city-name">
+                                Mumbai
+                                <span class="city-code">BOM</span>
+                            </div>
+                        </td>
+                        <td data-label="State"><span class="state-badge">Maharashtra</span></td>
+                        <td data-label="Best Price" class="price-cell">CHF 750</td>
+                        <td data-label="Best Dates" class="date-cell">Jul 14 - Aug 14, 2026</td>
+                        <td data-label="Airport">
+                            <a href="https://www.csmia.aero" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                                Chhatrapati Shivaji ↗
+                            </a>
+                        </td>
+                    </tr>
+                    <tr onclick="window.open('https://www.bengaluruairport.com', '_blank')" style="cursor: pointer;">
+                        <td data-label="City">
+                            <div class="city-name">
+                                Bangalore
+                                <span class="city-code">BLR</span>
+                            </div>
+                        </td>
+                        <td data-label="State"><span class="state-badge">Karnataka</span></td>
+                        <td data-label="Best Price" class="price-cell">CHF 800</td>
+                        <td data-label="Best Dates" class="date-cell">Jul 21 - Aug 21, 2026</td>
+                        <td data-label="Airport">
+                            <a href="https://www.bengaluruairport.com" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                                Kempegowda Intl ↗
+                            </a>
+                        </td>
+                    </tr>
+                    <tr onclick="window.open('https://www.chennaiairport.com', '_blank')" style="cursor: pointer;">
+                        <td data-label="City">
+                            <div class="city-name">
+                                Chennai
+                                <span class="city-code">MAA</span>
+                            </div>
+                        </td>
+                        <td data-label="State"><span class="state-badge">Tamil Nadu</span></td>
+                        <td data-label="Best Price" class="price-cell">CHF 820</td>
+                        <td data-label="Best Dates" class="date-cell">Jul 14 - Aug 14, 2026</td>
+                        <td data-label="Airport">
+                            <a href="https://www.chennaiairport.com" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                                Chennai Intl ↗
+                            </a>
+                        </td>
+                    </tr>
+                    <tr onclick="window.open('https://www.hyderabad.aero', '_blank')" style="cursor: pointer;">
+                        <td data-label="City">
+                            <div class="city-name">
+                                Hyderabad
+                                <span class="city-code">HYD</span>
+                            </div>
+                        </td>
+                        <td data-label="State"><span class="state-badge">Telangana</span></td>
+                        <td data-label="Best Price" class="price-cell">CHF 850</td>
+                        <td data-label="Best Dates" class="date-cell">Jul 21 - Aug 21, 2026</td>
+                        <td data-label="Airport">
+                            <a href="https://www.hyderabad.aero" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                                Rajiv Gandhi Intl ↗
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="City">
+                            <div class="city-name">
+                                Vijayawada
+                                <span class="city-code">VGA</span>
+                            </div>
+                        </td>
+                        <td data-label="State"><span class="state-badge">Andhra Pradesh</span></td>
+                        <td data-label="Best Price" class="price-cell">CHF 900</td>
+                        <td data-label="Best Dates" class="date-cell">Jul 14 - Aug 14, 2026</td>
+                        <td data-label="Airport" style="font-weight: 600; color: #64748b;">Vijayawada Airport</td>
+                    </tr>
+                    <tr>
+                        <td data-label="City">
+                            <div class="city-name">
+                                Visakhapatnam
+                                <span class="city-code">VTZ</span>
+                            </div>
+                        </td>
+                        <td data-label="State"><span class="state-badge">Andhra Pradesh</span></td>
+                        <td data-label="Best Price" class="price-cell">CHF 900</td>
+                        <td data-label="Best Dates" class="date-cell">Jul 21 - Aug 21, 2026</td>
+                        <td data-label="Airport" style="font-weight: 600; color: #64748b;">Visakhapatnam Airport</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">🎯</span>
+                <h2>Quick Actions</h2>
+            </div>
+            <div class="actions-grid">
+                <a href="https://www.google.com/flights?hl=en#flt=ZRH,GVA,BSL.BOM,BLR,HYD,MAA,DEL,VGA,VTZ.2026-07-14*BOM,BLR,HYD,MAA,DEL,VGA,VTZ.ZRH,GVA,BSL.2026-08-14" target="_blank" class="action-btn">
+                    <span class="btn-icon">🔍</span>
+                    Search All Cities (Google Flights)
+                </a>
+                <a href="https://www.skyscanner.com" target="_blank" class="action-btn secondary">
+                    <span class="btn-icon">📱</span>
+                    Compare on Skyscanner
+                </a>
+                <a href="https://www.momondo.com" target="_blank" class="action-btn tertiary">
+                    <span class="btn-icon">💎</span>
+                    Find Hidden Deals (Momondo)
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div style="font-size: 1.2em; margin-bottom: 15px;">
+                    ✈️ Flight Price Tracker
+                </div>
+                <div style="opacity: 0.9;">
+                    Automatically updated daily at 22:00 (10 PM)<br>
+                    Next update: Today at 10:00 PM
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                    <div style="font-size: 1.1em; font-weight: 600; margin-bottom: 10px; color: #fbbf24;">
+                        ⚠️ IMPORTANT: These are ESTIMATED prices
+                    </div>
+                    <div style="font-size: 0.9em; line-height: 1.6;">
+                        Prices shown are AI-generated estimates based on typical patterns.<br>
+                        <strong>NOT live prices.</strong> Always verify current prices on booking sites before purchasing.<br>
+                        Actual prices may be higher or lower depending on availability and demand.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Fetch Real Prices from API -->
+    <script>
+        // Fetch real prices from Amadeus API
+        async function loadRealPrices() {
+            const loadingIndicator = document.querySelector('.update-badge');
+            if (loadingIndicator) {
+                loadingIndicator.innerHTML = '⏳ Loading live prices from Amadeus API...';
+                loadingIndicator.style.background = '#f59e0b';
+            }
+
+            try {
+                const response = await fetch('/api/get-flight-prices');
+                const data = await response.json();
+
+                if (data.success && data.results) {
+                    updatePrices(data);
+                    
+                    if (loadingIndicator) {
+                        const timestamp = new Date(data.timestamp).toLocaleString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        loadingIndicator.innerHTML = `✅ Live prices from Amadeus API | Updated: ${timestamp}`;
+                        loadingIndicator.style.background = '#10b981';
+                    }
+                } else {
+                    console.error('API returned no results');
+                    if (loadingIndicator) {
+                        loadingIndicator.innerHTML = '⚠️ Using estimated prices (API unavailable)';
+                        loadingIndicator.style.background = '#ef4444';
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch prices:', error);
+                if (loadingIndicator) {
+                    loadingIndicator.innerHTML = '⚠️ Using estimated prices (API error)';
+                    loadingIndicator.style.background = '#ef4444';
+                }
+            }
+        }
+
+        function updatePrices(data) {
+            const results = data.results;
+            const cheapest = data.cheapest;
+
+            // Update best deal banner
+            if (cheapest && cheapest.price) {
+                const bestDeal = document.querySelector('.best-deal');
+                if (bestDeal) {
+                    const cityName = bestDeal.querySelector('div[style*="font-size: 1.8em"]');
+                    const priceDiv = bestDeal.querySelector('.price');
+                    const estimateNote = bestDeal.querySelector('div[style*="Estimated price"]');
+                    
+                    if (cityName) cityName.textContent = cheapest.city;
+                    if (priceDiv) priceDiv.textContent = `CHF ${cheapest.price}`;
+                    if (estimateNote) {
+                        estimateNote.innerHTML = '<strong style="color: #10b981;">✅ LIVE PRICE from Amadeus API</strong>';
+                    }
+
+                    // Update dates
+                    const dateBox = bestDeal.querySelector('.detail-box span');
+                    if (dateBox && cheapest.depDate && cheapest.retDate) {
+                        const depDate = new Date(cheapest.depDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                        const retDate = new Date(cheapest.retDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                        dateBox.textContent = `${depDate} → ${retDate}`;
+                    }
+
+                    // Update booking link
+                    const bookBtn = bestDeal.querySelector('.action-btn');
+                    if (bookBtn && cheapest.bookingLink) {
+                        bookBtn.href = cheapest.bookingLink;
+                    }
+                }
+            }
+
+            // Update comparison table
+            const tableRows = document.querySelectorAll('tbody tr');
+            results.forEach(result => {
+                tableRows.forEach(row => {
+                    const cityCell = row.querySelector('td[data-label="City"]');
+                    if (cityCell && cityCell.textContent.trim().includes(result.city)) {
+                        const priceCell = row.querySelector('td[data-label="Best Price"]');
+                        if (priceCell) {
+                            if (result.price) {
+                                priceCell.innerHTML = `<strong style="color: #10b981;">CHF ${result.price}</strong>`;
+                            } else {
+                                priceCell.innerHTML = '<span style="color: #94a3b8;">Checking...</span>';
+                            }
+                        }
+
+                        const datesCell = row.querySelector('td[data-label="Best Dates"]');
+                        if (datesCell && result.depDate && result.retDate) {
+                            const depDate = new Date(result.depDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                            const retDate = new Date(result.retDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                            datesCell.textContent = `${depDate} to ${retDate}`;
+                        }
+                    }
+                });
+            });
+
+            // Update disclaimer
+            const disclaimer = document.querySelector('.footer-content div[style*="IMPORTANT"]');
+            if (disclaimer) {
+                disclaimer.innerHTML = '✅ LIVE PRICES from Amadeus API';
+                disclaimer.style.color = '#10b981';
+            }
+            const disclaimerText = document.querySelector('.footer-content div[style*="AI-generated"]');
+            if (disclaimerText) {
+                disclaimerText.innerHTML = 'Prices shown are <strong>REAL live prices</strong> from Amadeus Flight API.<br>Updated automatically. Always verify on booking sites before purchasing.<br>Prices may change based on availability.';
+            }
+        }
+
+        // Load prices when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadRealPrices);
+        } else {
+            loadRealPrices();
+        }
+    </script>
+</body>
+</html>

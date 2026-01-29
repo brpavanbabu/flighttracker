@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/get-flight-prices",
+      "schedule": "0 22 * * *"
+    }
+  ]
+}
