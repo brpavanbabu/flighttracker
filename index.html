@@ -883,6 +883,9 @@
         </footer>
     </div>
 
+    <!-- Load scraped flight data (if available) -->
+    <script src="flight-data.js" onerror="console.log('Using API fallback')"></script>
+    
     <!-- Fetch Real Prices from API -->
     <script>
         // Fetch real prices from Amadeus API
@@ -998,11 +1001,41 @@
             }
         }
 
+        // Check if we have scraped data first (from flight-data.js)
+        function initializePrices() {
+            if (typeof flightData !== 'undefined' && flightData.top3) {
+                console.log('Using scraped flight data');
+                updatePrices({
+                    success: true,
+                    results: flightData.top3,
+                    cheapest: flightData.cheapest,
+                    timestamp: flightData.lastUpdate
+                });
+                
+                // Update loading indicator
+                const loadingIndicator = document.querySelector('.update-badge');
+                if (loadingIndicator) {
+                    const timestamp = new Date(flightData.lastUpdate).toLocaleString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    loadingIndicator.innerHTML = `✅ Live prices from Google Flights scraper | Updated: ${timestamp}`;
+                    loadingIndicator.style.background = '#10b981';
+                }
+            } else {
+                console.log('No scraped data, using API');
+                loadRealPrices();
+            }
+        }
+        
         // Load prices when page loads
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadRealPrices);
+            document.addEventListener('DOMContentLoaded', initializePrices);
         } else {
-            loadRealPrices();
+            initializePrices();
         }
     </script>
 </body>

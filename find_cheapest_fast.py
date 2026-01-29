@@ -85,47 +85,69 @@ async def get_real_price(from_code, from_city, to_code, to_city, dep_date, ret_d
             }
 
 async def main():
-    """Smart search - only check likely cheapest routes"""
+    """Smart search with flexible duration"""
     
     print()
     print("=" * 70)
-    print("FAST SEARCH - Smart Route Selection")
-    print("Checking only the MOST LIKELY cheapest routes")
+    print("FLEXIBLE DATE SEARCH - July to August 2026")
+    print("Finding the CHEAPEST flights for your trip duration")
     print("=" * 70)
     print()
     
-    # Smart selection: Routes historically cheaper
-    # Delhi is usually cheapest, then Mumbai, then Bangalore
-    # Zurich has most options
-    # Tuesdays/Wednesdays are cheapest
+    # Ask user for trip duration
+    print("Select trip duration:")
+    print("  1) 2 weeks (~14 days)")
+    print("  2) 4 weeks (~28 days)")
+    print()
     
-    routes = [
-        # MOST LIKELY CHEAPEST: Zurich -> Delhi (biggest hubs)
-        {"from": "ZRH", "fromCity": "Zurich", "to": "DEL", "toCity": "Delhi", 
-         "dep": "2026-07-01", "ret": "2026-08-01", "label": "Jul 1-Aug 1 (Tue-Fri)"},
-        {"from": "ZRH", "fromCity": "Zurich", "to": "DEL", "toCity": "Delhi", 
-         "dep": "2026-07-07", "ret": "2026-08-04", "label": "Jul 7-Aug 4 (Tue-Tue)"},
-        
-        # SECOND CHOICE: Mumbai
-        {"from": "ZRH", "fromCity": "Zurich", "to": "BOM", "toCity": "Mumbai", 
-         "dep": "2026-07-01", "ret": "2026-08-01", "label": "Jul 1-Aug 1"},
-        {"from": "ZRH", "fromCity": "Zurich", "to": "BOM", "toCity": "Mumbai", 
-         "dep": "2026-07-07", "ret": "2026-08-04", "label": "Jul 7-Aug 4"},
-        
-        # THIRD CHOICE: Bangalore
-        {"from": "ZRH", "fromCity": "Zurich", "to": "BLR", "toCity": "Bangalore", 
-         "dep": "2026-07-07", "ret": "2026-08-04", "label": "Jul 7-Aug 4"},
-        
-        # Geneva alternatives (sometimes cheaper)
-        {"from": "GVA", "fromCity": "Geneva", "to": "DEL", "toCity": "Delhi", 
-         "dep": "2026-07-01", "ret": "2026-08-01", "label": "Jul 1-Aug 1"},
-        
-        # Also check mid-July (your preference)
-        {"from": "ZRH", "fromCity": "Zurich", "to": "DEL", "toCity": "Delhi", 
-         "dep": "2026-07-14", "ret": "2026-08-14", "label": "Jul 14-Aug 14"},
-        {"from": "ZRH", "fromCity": "Zurich", "to": "BLR", "toCity": "Bangalore", 
-         "dep": "2026-07-14", "ret": "2026-08-14", "label": "Jul 14-Aug 14"},
+    # For automation, default to 4 weeks (can be changed)
+    import sys
+    if len(sys.argv) > 1:
+        duration_choice = sys.argv[1]
+    else:
+        duration_choice = "2"  # Default to 4 weeks
+    
+    if duration_choice == "1":
+        trip_days = 14
+        trip_label = "2 weeks"
+    else:
+        trip_days = 28
+        trip_label = "4 weeks"
+    
+    print(f"Selected: {trip_label} trip")
+    print()
+    
+    # Cities to check
+    cities = [
+        {"code": "DEL", "name": "Delhi"},
+        {"code": "BOM", "name": "Mumbai"},
+        {"code": "BLR", "name": "Bangalore"},
+        {"code": "MAA", "name": "Chennai"},
+        {"code": "HYD", "name": "Hyderabad"},
     ]
+    
+    # Date combinations to check (anytime in July → anytime in August)
+    date_combos = [
+        {"dep": "2026-07-01", "ret": "2026-08-01", "label": "Early Jul - Early Aug"},
+        {"dep": "2026-07-07", "ret": "2026-08-04", "label": "Jul 7 - Aug 4 (Tue-Tue)"},
+        {"dep": "2026-07-14", "ret": "2026-08-14", "label": "Mid Jul - Mid Aug"},
+        {"dep": "2026-07-21", "ret": "2026-08-21", "label": "Late Jul - Late Aug"},
+        {"dep": "2026-07-28", "ret": "2026-08-28", "label": "End Jul - End Aug"},
+    ]
+    
+    # Build all combinations
+    routes = []
+    for city in cities:
+        for dates in date_combos:
+            routes.append({
+                "from": "ZRH",
+                "fromCity": "Zurich",
+                "to": city["code"],
+                "toCity": city["name"],
+                "dep": dates["dep"],
+                "ret": dates["ret"],
+                "label": dates["label"]
+            })
     
     print(f"Checking {len(routes)} strategic routes")
     print(f"Expected time: ~{len(routes) * 15} seconds (~{len(routes) * 15 // 60 + 1} min)")
