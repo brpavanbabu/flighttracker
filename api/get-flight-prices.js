@@ -89,13 +89,15 @@ export default async function handler(req, res) {
 
   try {
     // Routes to check
+    // Using closer dates for testing (Amadeus API typically allows booking 6 months ahead)
     const routes = [
-      { from: 'ZRH', to: 'DEL', city: 'Delhi', dep: '2026-07-01', ret: '2026-08-01' },
-      { from: 'ZRH', to: 'DEL', city: 'Delhi', dep: '2026-07-07', ret: '2026-08-04' },
-      { from: 'ZRH', to: 'BOM', city: 'Mumbai', dep: '2026-07-01', ret: '2026-08-01' },
-      { from: 'ZRH', to: 'BLR', city: 'Bangalore', dep: '2026-07-07', ret: '2026-08-04' },
-      { from: 'ZRH', to: 'MAA', city: 'Chennai', dep: '2026-07-14', ret: '2026-08-14' },
-      { from: 'ZRH', to: 'HYD', city: 'Hyderabad', dep: '2026-07-14', ret: '2026-08-14' },
+      { from: 'ZRH', to: 'DEL', city: 'Delhi', dep: '2026-03-15', ret: '2026-04-15' },
+      { from: 'ZRH', to: 'BOM', city: 'Mumbai', dep: '2026-03-15', ret: '2026-04-15' },
+      { from: 'ZRH', to: 'BLR', city: 'Bangalore', dep: '2026-03-20', ret: '2026-04-20' },
+      { from: 'ZRH', to: 'MAA', city: 'Chennai', dep: '2026-03-20', ret: '2026-04-20' },
+      { from: 'ZRH', to: 'HYD', city: 'Hyderabad', dep: '2026-03-25', ret: '2026-04-25' },
+      // For July-August (your desired dates), update these when booking window opens (around May)
+      // { from: 'ZRH', to: 'DEL', city: 'Delhi', dep: '2026-07-01', ret: '2026-08-01' },
     ];
 
     const results = [];
