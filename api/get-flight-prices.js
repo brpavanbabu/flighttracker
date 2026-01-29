@@ -96,8 +96,9 @@ export default async function handler(req, res) {
       { from: 'ZRH', to: 'BLR', city: 'Bangalore', dep: '2026-03-20', ret: '2026-04-20' },
       { from: 'ZRH', to: 'MAA', city: 'Chennai', dep: '2026-03-20', ret: '2026-04-20' },
       { from: 'ZRH', to: 'HYD', city: 'Hyderabad', dep: '2026-03-25', ret: '2026-04-25' },
-      // For July-August (your desired dates), update these when booking window opens (around May)
-      // { from: 'ZRH', to: 'DEL', city: 'Delhi', dep: '2026-07-01', ret: '2026-08-01' },
+      { from: 'ZRH', to: 'VGA', city: 'Vijayawada', dep: '2026-03-15', ret: '2026-04-15' },
+      { from: 'ZRH', to: 'VTZ', city: 'Visakhapatnam', dep: '2026-03-15', ret: '2026-04-15' },
+      // Note: Smaller airports (VGA, VTZ) may not have direct flights or data available
     ];
 
     const results = [];

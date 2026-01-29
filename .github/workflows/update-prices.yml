@@ -1,9 +1,9 @@
-name: Update Flight Prices Daily
+name: Update Flight Prices Weekly
 
 on:
-  # Run every day at 22:00 (10 PM) UTC
+  # Run every Tuesday at 22:00 (10 PM) UTC
   schedule:
-    - cron: '0 22 * * *'
+    - cron: '0 22 * * 2'
   
   # Allow manual trigger
   workflow_dispatch:
